@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -23,8 +24,8 @@ export default function LoginPage() {
     setLoading(true);
 
     const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+      email,
+      password,
     });
 
     setLoading(false);
@@ -34,18 +35,13 @@ export default function LoginPage() {
       return;
     }
 
-    alert("Login successful!");
-
     router.push("/dashboard");
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center p-6">
-
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-gray-100 p-6">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
-
         <div className="text-center">
-
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-100 text-3xl">
             💰
           </div>
@@ -57,14 +53,9 @@ export default function LoginPage() {
           <p className="mt-2 text-gray-500">
             Login to your Smart Expense Tracker
           </p>
-
         </div>
 
-        <form
-          onSubmit={handleLogin}
-          className="mt-8 space-y-5"
-        >
-
+        <form onSubmit={handleLogin} className="mt-8 space-y-5">
           <div>
             <label className="mb-2 block text-sm font-semibold text-gray-700">
               Email Address
@@ -75,6 +66,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              required
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
           </div>
@@ -89,23 +81,31 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
+              required
               className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
+          </div>
+
+          <div className="text-right">
+            <Link
+              href="/forgot-password"
+              className="text-sm font-semibold text-blue-600 hover:underline"
+            >
+              Forgot Password?
+            </Link>
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
-
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-          Don't have an account?{" "}
-
+          Don&apos;t have an account?{" "}
           <Link
             href="/signup"
             className="font-semibold text-blue-600 hover:underline"
@@ -115,18 +115,14 @@ export default function LoginPage() {
         </p>
 
         <div className="mt-5 text-center">
-
           <Link
             href="/"
             className="text-sm text-gray-500 hover:text-blue-600"
           >
             ← Back to Home
           </Link>
-
         </div>
-
       </div>
-
     </main>
   );
 }
